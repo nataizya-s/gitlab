@@ -19,7 +19,7 @@ dotnet restore
 ## PUBLISH WEB HOST PROJECT ###################################################
 
 Set-Location $webHostFolder
-dotnet publish --output (Join-Path $outputFolder "Host")
+dotnet publish --output (Join-Path $outputFolder "host")
 
 ## PUBLISH ANGULAR UI PROJECT #################################################
 
@@ -37,7 +37,7 @@ $ngConfigPath = Join-Path $outputFolder "ng/assets/appconfig.json"
 ## CREATE DOCKER IMAGES #######################################################
 
 # Host
-Set-Location (Join-Path $outputFolder "Host")
+Set-Location (Join-Path $outputFolder "host")
 
 docker rmi abp/host -f
 docker build -t abp/host .

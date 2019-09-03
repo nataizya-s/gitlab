@@ -16,7 +16,9 @@ using EduVault.Configuration;
 using EduVault.Identity;
 
 using Abp.AspNetCore.SignalR.Hubs;
+using EduVault.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EduVault.Web.Host.Startup
 {
@@ -29,6 +31,25 @@ namespace EduVault.Web.Host.Startup
         public Startup(IHostingEnvironment env)
         {
             _appConfiguration = env.GetAppConfiguration();
+            LoadSettings(_appConfiguration);
+
+            MigrateDatabase();
+        }
+
+        public void LoadSettings(IConfigurationRoot configurationRoot)
+        {
+            Settings.ConnectionString = configurationRoot.GetConnectionString(EduVaultConsts.ConnectionStringName);
+        }
+
+        private void MigrateDatabase()
+        {
+            DbContextOptions<EduVaultDbContext> options = new DbContextOptionsBuilder<EduVaultDbContext>()
+                .UseSqlServer(Settings.ConnectionString, builder => builder.MigrationsAssembly("EduVault.EntityFrameworkCore"))
+                .Options;
+
+            EduVaultDbContext context = new EduVaultDbContext(options);
+            context.Database.Migrate();
+            context.Database.EnsureCreated();
         }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
