@@ -67,7 +67,7 @@ export class TenantsComponent extends PagedListingComponentBase<TenantDto> {
 
     delete(tenant: TenantDto): void {
         abp.message.confirm(
-            this.l('TenantDeleteWarningMessage', tenant.name),
+            this.l('SchoolDeleteWarningMessage', tenant.name),
             (result: boolean) => {
                 if (result) {
                     this._tenantService

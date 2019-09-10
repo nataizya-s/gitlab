@@ -1,5 +1,5 @@
 <form autocomplete="off" #editTenantForm="ngForm" (ngSubmit)="save()">
-  <h1 mat-dialog-title>{{ "EditTenant" | localize }}</h1>
+  <h1 mat-dialog-title>{{ "EditSchool" | localize }}</h1>
   <mat-dialog-content>
     <div class="row-fluid">
       <div class="col-md-12">
@@ -7,7 +7,7 @@
           <input
             matInput
             name="TenancyName"
-            [placeholder]="'TenancyName' | localize"
+            [placeholder]="'SchoolName' | localize"
             [(ngModel)]="tenant.tenancyName"
             required
             minlength="2"

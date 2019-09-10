@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Injector } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { AppComponentBase } from '@shared/app-component-base';
 import { TenantChangeDialogComponent } from './tenant-change-dialog.component';
@@ -8,7 +8,7 @@ import { TenantChangeDialogComponent } from './tenant-change-dialog.component';
   templateUrl: './tenant-change.component.html'
 })
 export class TenantChangeComponent extends AppComponentBase implements OnInit {
-  tenancyName = '';
+  schoolName = '';
   name = '';
 
   constructor(injector: Injector, private _dialog: MatDialog) {
@@ -17,7 +17,7 @@ export class TenantChangeComponent extends AppComponentBase implements OnInit {
 
   ngOnInit() {
     if (this.appSession.tenant) {
-      this.tenancyName = this.appSession.tenant.tenancyName;
+        this.schoolName = this.appSession.tenant.tenancyName;
       this.name = this.appSession.tenant.name;
     }
   }

@@ -8,7 +8,6 @@ using Abp.Extensions;
 using Abp.IdentityFramework;
 using Abp.Linq.Extensions;
 using Abp.MultiTenancy;
-using Abp.Runtime.Security;
 using EduVault.Authorization;
 using EduVault.Authorization.Roles;
 using EduVault.Authorization.Users;
@@ -49,9 +48,7 @@ namespace EduVault.MultiTenancy
 
             // Create tenant
             var tenant = ObjectMapper.Map<Tenant>(input);
-            tenant.ConnectionString = input.ConnectionString.IsNullOrEmpty()
-                ? null
-                : SimpleStringCipher.Instance.Encrypt(input.ConnectionString);
+            tenant.ConnectionString = null;
 
             var defaultEdition = await _editionManager.FindByNameAsync(EditionManager.DefaultEditionName);
             if (defaultEdition != null)
