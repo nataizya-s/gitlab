@@ -13,7 +13,9 @@ using EduVault.Authorization.Roles;
 using EduVault.Authorization.Users;
 using EduVault.Editions;
 using EduVault.MultiTenancy.Dto;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EduVault.MultiTenancy
 {
@@ -87,6 +89,15 @@ namespace EduVault.MultiTenancy
 
             return MapToEntityDto(tenant);
         }
+
+        public bool UploadFile([FromForm]IFormFile file)
+        {
+            IFormFile testing = file;
+            // Save file here
+
+            return true;
+        }
+
 
         protected override IQueryable<Tenant> CreateFilteredQuery(PagedTenantResultRequestDto input)
         {

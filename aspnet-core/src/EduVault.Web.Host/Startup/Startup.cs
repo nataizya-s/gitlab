@@ -17,6 +17,7 @@ using EduVault.Identity;
 
 using Abp.AspNetCore.SignalR.Hubs;
 using EduVault.EntityFrameworkCore;
+using EduVault.Web.Host.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -96,6 +97,9 @@ namespace EduVault.Web.Host.Startup
                     In = "header",
                     Type = "apiKey"
                 });
+
+                // Register File Upload Operation Filter
+                options.OperationFilter<FormFileSwaggerFilter>();
             });
 
             // Configure Abp and Dependency Injection

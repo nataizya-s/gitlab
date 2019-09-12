@@ -1,6 +1,6 @@
 <form autocomplete="off" #createTenantForm="ngForm" (ngSubmit)="save()">
     <h1 mat-dialog-title>{{ "CreateNewSchool" | localize }}</h1>
-    <mat-dialog-content>
+    <mat-dialog-content style="width:400px;">
         <div class="row-fluid">
             <div class="col-md-12">
                 <mat-form-field>
@@ -30,6 +30,10 @@
                            required
                            maxlength="256" />
                 </mat-form-field>
+                <div class="m-t-10 m-b-10">
+
+
+                </div>
                 <div class="checkbox-wrapper">
                     <mat-checkbox name="IsActive" [(ngModel)]="tenant.isActive">
                         {{ "IsActive" | localize }}

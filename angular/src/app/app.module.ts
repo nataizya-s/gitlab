@@ -38,57 +38,60 @@ import { EditUserDialogComponent } from '@app/users/edit-user/edit-user-dialog.c
 import { ChangePasswordComponent } from './users/change-password/change-password.component';
 import { ResetPasswordDialogComponent } from './users/reset-password/reset-password.component';
 
+//npm stuff
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    AboutComponent,
-    TopBarComponent,
-    TopBarLanguageSwitchComponent,
-    SideBarUserAreaComponent,
-    SideBarNavComponent,
-    SideBarFooterComponent,
-    RightSideBarComponent,
-    // tenants
-    TenantsComponent,
-    CreateTenantDialogComponent,
-    EditTenantDialogComponent,
-    // roles
-    RolesComponent,
-    CreateRoleDialogComponent,
-    EditRoleDialogComponent,
-    // users
-    UsersComponent,
-    CreateUserDialogComponent,
-    EditUserDialogComponent,
-    ChangePasswordComponent,
-    ResetPasswordDialogComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    HttpClientJsonpModule,
-    ModalModule.forRoot(),
-    AbpModule,
-    AppRoutingModule,
-    ServiceProxyModule,
-    SharedModule,
-    NgxPaginationModule
-  ],
-  providers: [],
-  entryComponents: [
-    // tenants
-    CreateTenantDialogComponent,
-    EditTenantDialogComponent,
-    // roles
-    CreateRoleDialogComponent,
-    EditRoleDialogComponent,
-    // users
-    CreateUserDialogComponent,
-    EditUserDialogComponent,
-    ResetPasswordDialogComponent
-  ]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        AboutComponent,
+        TopBarComponent,
+        TopBarLanguageSwitchComponent,
+        SideBarUserAreaComponent,
+        SideBarNavComponent,
+        SideBarFooterComponent,
+        RightSideBarComponent,
+        // tenants
+        TenantsComponent,
+        CreateTenantDialogComponent,
+        EditTenantDialogComponent,
+        // roles
+        RolesComponent,
+        CreateRoleDialogComponent,
+        EditRoleDialogComponent,
+        // users
+        UsersComponent,
+        CreateUserDialogComponent,
+        EditUserDialogComponent,
+        ChangePasswordComponent,
+        ResetPasswordDialogComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        HttpClientJsonpModule,
+        ModalModule.forRoot(),
+        AbpModule,
+        AppRoutingModule,
+        ServiceProxyModule,
+        SharedModule,
+        NgxPaginationModule,
+        //npm stuff
+    ],
+    providers: [],
+    entryComponents: [
+        // tenants
+        CreateTenantDialogComponent,
+        EditTenantDialogComponent,
+        // roles
+        CreateRoleDialogComponent,
+        EditRoleDialogComponent,
+        // users
+        CreateUserDialogComponent,
+        EditUserDialogComponent,
+        ResetPasswordDialogComponent
+    ]
 })
-export class AppModule {}
+export class AppModule { }
