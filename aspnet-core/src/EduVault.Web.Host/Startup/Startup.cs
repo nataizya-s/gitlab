@@ -17,6 +17,7 @@ using EduVault.Identity;
 
 using Abp.AspNetCore.SignalR.Hubs;
 using EduVault.EntityFrameworkCore;
+using EduVault.Helpers;
 using EduVault.Web.Host.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +41,9 @@ namespace EduVault.Web.Host.Startup
         public void LoadSettings(IConfigurationRoot configurationRoot)
         {
             Settings.ConnectionString = configurationRoot.GetConnectionString(EduVaultConsts.ConnectionStringName);
+            AppSettings appSettings = new AppSettings();
+            configurationRoot.GetSection("AppSettings").Bind(appSettings);
+            Settings.AppSettings = appSettings;
         }
 
         private void MigrateDatabase()

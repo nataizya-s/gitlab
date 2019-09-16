@@ -652,6 +652,72 @@ export class RoleServiceProxy {
 }
 
 @Injectable()
+export class SchoolServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param tenantId (optional) 
+     * @return Success
+     */
+    getLogoLocation(tenantId: number | null | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/School/GetLogoLocation?";
+        if (tenantId !== undefined)
+            url_ += "tenantId=" + encodeURIComponent("" + tenantId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetLogoLocation(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetLogoLocation(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetLogoLocation(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
+}
+
+@Injectable()
 export class SessionServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -782,10 +848,66 @@ export class TenantServiceProxy {
     }
 
     /**
+     * @param input (optional) 
+     * @return Success
+     */
+    update(input: TenantDto | null | undefined): Observable<TenantDto> {
+        let url_ = this.baseUrl + "/api/services/app/Tenant/Update";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdate(<any>response_);
+                } catch (e) {
+                    return <Observable<TenantDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<TenantDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdate(response: HttpResponseBase): Observable<TenantDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = TenantDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<TenantDto>(<any>null);
+    }
+
+    /**
      * @param file (optional) 
      * @return Success
      */
-    uploadFile(file: FileParameter | null | undefined): Observable<boolean> {
+    uploadFile(file: FileParameter | null | undefined): Observable<number> {
         let url_ = this.baseUrl + "/api/services/app/Tenant/UploadFile";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -809,14 +931,14 @@ export class TenantServiceProxy {
                 try {
                     return this.processUploadFile(<any>response_);
                 } catch (e) {
-                    return <Observable<boolean>><any>_observableThrow(e);
+                    return <Observable<number>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<boolean>><any>_observableThrow(response_);
+                return <Observable<number>><any>_observableThrow(response_);
         }));
     }
 
-    protected processUploadFile(response: HttpResponseBase): Observable<boolean> {
+    protected processUploadFile(response: HttpResponseBase): Observable<number> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -835,7 +957,7 @@ export class TenantServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<boolean>(<any>null);
+        return _observableOf<number>(<any>null);
     }
 
     /**
@@ -1003,62 +1125,6 @@ export class TenantServiceProxy {
             }));
         }
         return _observableOf<PagedResultDtoOfTenantDto>(<any>null);
-    }
-
-    /**
-     * @param input (optional) 
-     * @return Success
-     */
-    update(input: TenantDto | null | undefined): Observable<TenantDto> {
-        let url_ = this.baseUrl + "/api/services/app/Tenant/Update";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(input);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json", 
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdate(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processUpdate(<any>response_);
-                } catch (e) {
-                    return <Observable<TenantDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<TenantDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processUpdate(response: HttpResponseBase): Observable<TenantDto> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = TenantDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<TenantDto>(<any>null);
     }
 }
 
@@ -2806,6 +2872,7 @@ export class CreateTenantDto implements ICreateTenantDto {
     adminEmailAddress: string;
     connectionString: string | undefined;
     isActive: boolean | undefined;
+    profilePhotoAttachmentId: number | undefined;
 
     constructor(data?: ICreateTenantDto) {
         if (data) {
@@ -2823,6 +2890,7 @@ export class CreateTenantDto implements ICreateTenantDto {
             this.adminEmailAddress = data["adminEmailAddress"];
             this.connectionString = data["connectionString"];
             this.isActive = data["isActive"];
+            this.profilePhotoAttachmentId = data["profilePhotoAttachmentId"];
         }
     }
 
@@ -2840,6 +2908,7 @@ export class CreateTenantDto implements ICreateTenantDto {
         data["adminEmailAddress"] = this.adminEmailAddress;
         data["connectionString"] = this.connectionString;
         data["isActive"] = this.isActive;
+        data["profilePhotoAttachmentId"] = this.profilePhotoAttachmentId;
         return data; 
     }
 
@@ -2857,12 +2926,14 @@ export interface ICreateTenantDto {
     adminEmailAddress: string;
     connectionString: string | undefined;
     isActive: boolean | undefined;
+    profilePhotoAttachmentId: number | undefined;
 }
 
 export class TenantDto implements ITenantDto {
     tenancyName: string;
     name: string;
     isActive: boolean | undefined;
+    profilePhotoAttachmentId: number | undefined;
     id: number | undefined;
 
     constructor(data?: ITenantDto) {
@@ -2879,6 +2950,7 @@ export class TenantDto implements ITenantDto {
             this.tenancyName = data["tenancyName"];
             this.name = data["name"];
             this.isActive = data["isActive"];
+            this.profilePhotoAttachmentId = data["profilePhotoAttachmentId"];
             this.id = data["id"];
         }
     }
@@ -2895,6 +2967,7 @@ export class TenantDto implements ITenantDto {
         data["tenancyName"] = this.tenancyName;
         data["name"] = this.name;
         data["isActive"] = this.isActive;
+        data["profilePhotoAttachmentId"] = this.profilePhotoAttachmentId;
         data["id"] = this.id;
         return data; 
     }
@@ -2911,6 +2984,7 @@ export interface ITenantDto {
     tenancyName: string;
     name: string;
     isActive: boolean | undefined;
+    profilePhotoAttachmentId: number | undefined;
     id: number | undefined;
 }
 

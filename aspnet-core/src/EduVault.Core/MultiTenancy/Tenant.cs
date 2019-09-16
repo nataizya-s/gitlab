@@ -5,6 +5,8 @@ namespace EduVault.MultiTenancy
 {
     public class Tenant : AbpTenant<User>
     {
+        public long? ProfilePhotoAttachmentId { get; set; }
+
         public Tenant()
         {            
         }

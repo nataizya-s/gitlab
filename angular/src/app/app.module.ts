@@ -39,6 +39,7 @@ import { ChangePasswordComponent } from './users/change-password/change-password
 import { ResetPasswordDialogComponent } from './users/reset-password/reset-password.component';
 
 //npm stuff
+import { FileSelectDirective } from 'ng2-file-upload';
 
 @NgModule({
     declarations: [
@@ -64,7 +65,9 @@ import { ResetPasswordDialogComponent } from './users/reset-password/reset-passw
         CreateUserDialogComponent,
         EditUserDialogComponent,
         ChangePasswordComponent,
-        ResetPasswordDialogComponent
+        ResetPasswordDialogComponent,
+        //npm stuff
+        FileSelectDirective
     ],
     imports: [
         CommonModule,

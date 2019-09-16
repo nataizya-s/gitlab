@@ -1,4 +1,4 @@
-﻿/* Show Fieldset and Legend ==================== */
+/* Show Fieldset and Legend ==================== */
 .show-fieldset {
     margin: 10px;
     padding: 10px;
@@ -7584,8 +7584,7 @@ fieldset[disabled] .form-control {
     white-space: nowrap;
     position: relative;
     border-bottom: 1px solid #e9e9e9;
-    background: url("../images/user-img-background.jpg") no-repeat no-repeat;
-    height: 135px; }
+      height: 135px; }
     .sidebar .user-info .image {
       margin-right: 12px;
       display: inline-block; }

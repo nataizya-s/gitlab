@@ -18,5 +18,7 @@ namespace EduVault.MultiTenancy.Dto
         public string Name { get; set; }        
         
         public bool IsActive {get; set;}
+
+        public long? ProfilePhotoAttachmentId { get; set; }
     }
 }

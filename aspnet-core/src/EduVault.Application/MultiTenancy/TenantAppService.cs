@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
@@ -8,10 +10,13 @@ using Abp.Extensions;
 using Abp.IdentityFramework;
 using Abp.Linq.Extensions;
 using Abp.MultiTenancy;
+using Abp.UI;
 using EduVault.Authorization;
 using EduVault.Authorization.Roles;
 using EduVault.Authorization.Users;
 using EduVault.Editions;
+using EduVault.General;
+using EduVault.Helpers;
 using EduVault.MultiTenancy.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -27,9 +32,11 @@ namespace EduVault.MultiTenancy
         private readonly UserManager _userManager;
         private readonly RoleManager _roleManager;
         private readonly IAbpZeroDbMigrator _abpZeroDbMigrator;
+        private readonly IRepository<Attachment, long> _attachmentRepository;
 
         public TenantAppService(
             IRepository<Tenant, int> repository,
+            IRepository<Attachment, long> attachmentRepository,
             TenantManager tenantManager,
             EditionManager editionManager,
             UserManager userManager,
@@ -42,6 +49,7 @@ namespace EduVault.MultiTenancy
             _userManager = userManager;
             _roleManager = roleManager;
             _abpZeroDbMigrator = abpZeroDbMigrator;
+            _attachmentRepository = attachmentRepository;
         }
 
         public override async Task<TenantDto> Create(CreateTenantDto input)
@@ -67,6 +75,12 @@ namespace EduVault.MultiTenancy
             // We are working entities of new tenant, so changing tenant filter
             using (CurrentUnitOfWork.SetTenantId(tenant.Id))
             {
+                if (input.ProfilePhotoAttachmentId != null)
+                {
+                    CreateImages((long)input.ProfilePhotoAttachmentId, tenant.Id);
+                    await CurrentUnitOfWork.SaveChangesAsync();
+                }
+
                 // Create static roles for new tenant
                 CheckErrors(await _roleManager.CreateStaticRoles(tenant.Id));
 
@@ -90,14 +104,67 @@ namespace EduVault.MultiTenancy
             return MapToEntityDto(tenant);
         }
 
-        public bool UploadFile([FromForm]IFormFile file)
+        public override async Task<TenantDto> Update(TenantDto input)
         {
-            IFormFile testing = file;
-            // Save file here
+            CheckUpdatePermission();
 
-            return true;
+            Tenant entity = await GetEntityByIdAsync(input.Id);
+
+            MapToEntity(input, entity);
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            if (input.ProfilePhotoAttachmentId != null)
+            {
+                CreateImages((long)input.ProfilePhotoAttachmentId, input.Id);
+                await CurrentUnitOfWork.SaveChangesAsync();
+            }
+
+            return MapToEntityDto(entity);
         }
 
+        private void CreateImages(long attachmentId, long tenantId)
+        {
+            Attachment attachment = _attachmentRepository.Get(attachmentId);
+            string location = Settings.AppSettings.SchoolLogoFolder + "\\" + tenantId + "\\";
+            CreateFolderLocation(location);
+            location += "SchoolLogo" + GetFileExtension(attachment.Name);
+            File.WriteAllBytes(location, attachment.Data);
+            attachment.Location = "\\" + tenantId + "\\" + "SchoolLogo" + GetFileExtension(attachment.Name);
+            _attachmentRepository.Update(attachment);
+        }
+
+        private string GetFileExtension(string fileName)
+        {
+            int index = fileName.LastIndexOf(".", StringComparison.InvariantCulture);
+            return fileName.Substring(index);
+        }
+
+        private void CreateFolderLocation(string location)
+        {
+            Directory.CreateDirectory(location);
+        }
+
+        public async Task<long?> UploadFile([FromForm]IFormFile file)
+        {
+            if (file == null || file.Length <= 0) throw new UserFriendlyException("No file uploaded.");
+            long? attachmentId;
+            using (Stream fs1 = file.OpenReadStream())
+            using (MemoryStream ms1 = new MemoryStream())
+            {
+                fs1.CopyTo(ms1);
+                Attachment attachment = new Attachment()
+                {
+                    Data = ms1.ToArray(),
+                    Type = AttachmentType.Image,
+                    CreatorUserId = AbpSession.UserId,
+                    Name = file.FileName
+                };
+                attachmentId = _attachmentRepository.InsertAndGetId(attachment);
+            }
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return attachmentId;
+        }
 
         protected override IQueryable<Tenant> CreateFilteredQuery(PagedTenantResultRequestDto input)
         {
@@ -112,6 +179,7 @@ namespace EduVault.MultiTenancy
             entity.Name = updateInput.Name;
             entity.TenancyName = updateInput.TenancyName;
             entity.IsActive = updateInput.IsActive;
+            entity.ProfilePhotoAttachmentId = updateInput.ProfilePhotoAttachmentId;
         }
 
         public override async Task Delete(EntityDto<int> input)
