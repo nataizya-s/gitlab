@@ -112,5 +112,8 @@
 
     <text name="TenantDeleteWarningMessage">You are about to delete {0} tenant.</text>
     <text name="SchoolDeleteWarningMessage">You are about to delete {0} school.</text>
+
+
+    <text name="NoImage">No Image</text>
   </texts>
 </localizationDictionary>

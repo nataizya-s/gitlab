@@ -1,6 +1,6 @@
 <form autocomplete="off" #editTenantForm="ngForm" (ngSubmit)="save()">
     <h1 mat-dialog-title>{{ "EditSchool" | localize }}</h1>
-    <mat-dialog-content style="width:400px;">
+    <mat-dialog-content style="width:600px;">
         <div class="row-fluid">
             <div class="col-md-12">
                 <mat-form-field>
@@ -24,6 +24,14 @@
 
                     <input type="file" ng2FileSelect [uploader]="uploader" />
 
+                </div>
+                <div *ngIf="this.logoLocation != null">
+                    <img [src]="logo()" class="edit-tenant-logo"/>
+                </div>
+                <div *ngIf="this.logoLocation == null" class="m-t-10 m-b-10">
+                    <h4>
+                        {{"NoImage" | localize}}
+                    </h4>
                 </div>
                 <div class="checkbox-wrapper">
                     <mat-checkbox name="IsActive" [(ngModel)]="tenant.isActive">

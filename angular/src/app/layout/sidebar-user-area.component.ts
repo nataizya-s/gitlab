@@ -34,11 +34,15 @@ export class SideBarUserAreaComponent extends AppComponentBase implements OnInit
         this._authService.logout();
     }
 
-    get logo(): string {
-        if (this.logoLocation === null) {
-            return "url('../assets/images/user-img-background.jpg') no-repeat no-repeat;";
+    setStyle() {
+        let location: string = "../assets/images/user-img-background.jpg";
+        if (this.logoLocation != null) {
+            location = ".." + this.logoLocation.replace(/\\/g, "/");
         }
-        return `url('..${this.logoLocation}') no-repeat no-repeat;`;
+        let styles = {
+            'background-image': 'url(' + location + ')'
+        };
+        return styles;
     }
 
 }

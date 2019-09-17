@@ -4,12 +4,14 @@ import { finalize } from 'rxjs/operators';
 import { AppComponentBase } from '@shared/app-component-base';
 import {
     TenantServiceProxy,
-    TenantDto
+    TenantDto,
+    SchoolServiceProxy
 } from '@shared/service-proxies/service-proxies';
 import { FileUploader, FileUploaderOptions, FileItem } from 'ng2-file-upload';
 import { AppConsts } from "shared/AppConsts";
 import { TokenService } from '@abp/auth/token.service';
 import { IAjaxResponse } from '@abp/abpHttpInterceptor';
+import { Observable } from "rxjs/Rx";
 
 @Component({
     templateUrl: 'edit-tenant-dialog.component.html',
@@ -31,21 +33,28 @@ export class EditTenantDialogComponent extends AppComponentBase
     public uploader: FileUploader;
     _uploaderOptions: FileUploaderOptions = {};
     fileName: string;
+    logoLocation: string = null;
 
     constructor(
         injector: Injector,
         public _tenantService: TenantServiceProxy,
         private _dialogRef: MatDialogRef<EditTenantDialogComponent>,
         @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
-        private tokenService: TokenService
+        private tokenService: TokenService,
+        private schoolService: SchoolServiceProxy
     ) {
         super(injector);
     }
 
     ngOnInit(): void {
-        this._tenantService.get(this._id).subscribe((result: TenantDto) => {
-            this.tenant = result;
-        });
+        Observable.forkJoin([
+            this._tenantService.get(this._id),
+            this.schoolService.getLogoLocation(this._id)
+        ])
+            .subscribe((results: any[]) => {
+                this.tenant = results[0];
+                this.logoLocation = results[1];
+            });
 
         this.uploader = new FileUploader({ url: AppConsts.remoteServiceBaseUrl + "/api/services/app/Tenant/UploadFile" });
         this.uploader.clearQueue();
@@ -98,5 +107,10 @@ export class EditTenantDialogComponent extends AppComponentBase
 
     close(result: any): void {
         this._dialogRef.close(result);
+    }
+
+    logo(): string {
+        return `..${this.logoLocation.replace(/\\/g, "/")}`;
+
     }
 }

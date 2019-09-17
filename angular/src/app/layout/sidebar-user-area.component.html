@@ -1,7 +1,4 @@
-<div class="user-info" [style.background-image]="logo">
-    <div class="image">
-        <img src="assets/images/user.png" width="48" height="48" alt="User" />
-    </div>
+<div class="user-info" [ngStyle]="setStyle()">
     <div class="info-container">
         <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{shownLoginName}}</div>
         <div class="email">{{appSession.user.emailAddress}}</div>
