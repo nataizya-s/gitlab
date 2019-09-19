@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,9 +12,11 @@ using Abp.IdentityFramework;
 using Abp.Linq.Extensions;
 using Abp.MultiTenancy;
 using Abp.UI;
+using AutoMapper;
 using EduVault.Authorization;
 using EduVault.Authorization.Roles;
 using EduVault.Authorization.Users;
+using EduVault.Common;
 using EduVault.Editions;
 using EduVault.General;
 using EduVault.Helpers;
@@ -21,6 +24,7 @@ using EduVault.MultiTenancy.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EduVault.MultiTenancy
 {
@@ -75,9 +79,9 @@ namespace EduVault.MultiTenancy
             // We are working entities of new tenant, so changing tenant filter
             using (CurrentUnitOfWork.SetTenantId(tenant.Id))
             {
-                if (input.ProfilePhotoAttachmentId != null)
+                if (input.SchoolLogoAttachmentId != null)
                 {
-                    CreateImages((long)input.ProfilePhotoAttachmentId, tenant.Id);
+                    CreateImages((long)input.SchoolLogoAttachmentId, tenant.Id);
                     await CurrentUnitOfWork.SaveChangesAsync();
                 }
 
@@ -113,9 +117,9 @@ namespace EduVault.MultiTenancy
             MapToEntity(input, entity);
             await CurrentUnitOfWork.SaveChangesAsync();
 
-            if (input.ProfilePhotoAttachmentId != null)
+            if (input.SchoolLogoAttachmentId != null)
             {
-                CreateImages((long)input.ProfilePhotoAttachmentId, input.Id);
+                CreateImages((long)input.SchoolLogoAttachmentId, input.Id);
                 await CurrentUnitOfWork.SaveChangesAsync();
             }
 
@@ -179,7 +183,13 @@ namespace EduVault.MultiTenancy
             entity.Name = updateInput.Name;
             entity.TenancyName = updateInput.TenancyName;
             entity.IsActive = updateInput.IsActive;
-            entity.ProfilePhotoAttachmentId = updateInput.ProfilePhotoAttachmentId;
+            entity.SchoolLogoAttachmentId = updateInput.SchoolLogoAttachmentId;
+            entity.Addresses = ObjectMapper.Map<List<Address>>(updateInput.Addresses);
+            entity.Contacts = ObjectMapper.Map<List<Contact>>(updateInput.Contacts);
+            entity.Principal = updateInput.Principal;
+            entity.DeputyPrincipal = updateInput.DeputyPrincipal;
+            entity.District = updateInput.District;
+            entity.WebsiteAddress = updateInput.WebsiteAddress;
         }
 
         public override async Task Delete(EntityDto<int> input)
@@ -193,6 +203,13 @@ namespace EduVault.MultiTenancy
         private void CheckErrors(IdentityResult identityResult)
         {
             identityResult.CheckErrors(LocalizationManager);
+        }
+
+        protected override Task<Tenant> GetEntityByIdAsync(int id)
+        {
+            return Repository
+                .GetAllIncluding(c => c.Addresses, c => c.Contacts)
+                .FirstOrDefaultAsync(c => c.Id == id);
         }
     }
 }

@@ -34,6 +34,8 @@ export class EditTenantDialogComponent extends AppComponentBase
     _uploaderOptions: FileUploaderOptions = {};
     fileName: string;
     logoLocation: string = null;
+    addressTypes: any[] = AppConsts.addressTypes;
+    contactTypes: any[] = AppConsts.contactTypes;
 
     constructor(
         injector: Injector,
@@ -79,7 +81,7 @@ export class EditTenantDialogComponent extends AppComponentBase
             this.saving = false;
             const resp = JSON.parse(response) as IAjaxResponse;
             if (resp.success) {
-                this.tenant.profilePhotoAttachmentId = resp.result;
+                this.tenant.schoolLogoAttachmentId = resp.result;
             } else
                 this.message.error(resp.error.message);
         };

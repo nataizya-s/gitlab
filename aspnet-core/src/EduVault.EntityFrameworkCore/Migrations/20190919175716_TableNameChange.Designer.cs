@@ -4,14 +4,16 @@ using EduVault.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EduVault.Migrations
 {
     [DbContext(typeof(EduVaultDbContext))]
-    partial class EduVaultDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190919175716_TableNameChange")]
+    partial class TableNameChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1122,9 +1124,7 @@ namespace EduVault.Migrations
 
                     b.Property<int>("Type");
 
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("Value");
 
                     b.HasKey("Id");
 

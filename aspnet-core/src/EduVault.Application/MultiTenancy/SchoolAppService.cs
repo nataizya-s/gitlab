@@ -24,8 +24,8 @@ namespace EduVault.MultiTenancy
             try
             {
                 Tenant tenant = _tenantRepository.Get(tenantId);
-                if (tenant?.ProfilePhotoAttachmentId == null) return null;
-                Attachment attachment = _attachmentRepository.Get((long)tenant.ProfilePhotoAttachmentId);
+                if (tenant?.SchoolLogoAttachmentId == null) return null;
+                Attachment attachment = _attachmentRepository.Get((long)tenant.SchoolLogoAttachmentId);
                 string location =
                     Settings.AppSettings.SchoolLogoFolder.Replace(Settings.AppSettings.SrcFolderLocation, "");
                 return location + attachment.Location;

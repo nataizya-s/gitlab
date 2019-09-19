@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using Abp.Domain.Entities.Auditing;
+﻿using System.ComponentModel.DataAnnotations;
+using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
 
-namespace EduVault.Common
+namespace EduVault.Common.Dto
 {
-    public class Address : FullAuditedEntity
+    [AutoMap(typeof(Address))]
+    public class AddressDto : EntityDto
     {
         public AddressType Type { get; set; }
-        
+
         [Required]
         [MaxLength(200)]
         public string Description { get; set; }
@@ -39,14 +38,5 @@ namespace EduVault.Common
         [Required]
         [MaxLength(50)]
         public string PostalCode { get; set; }
-    }
-
-    public enum AddressType
-    {
-        Home = 1,
-        Business,
-        Billing, 
-        Shipping,
-        NA
     }
 }

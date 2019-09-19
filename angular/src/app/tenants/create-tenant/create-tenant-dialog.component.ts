@@ -5,7 +5,9 @@ import { AppComponentBase } from '@shared/app-component-base';
 import {
     CreateTenantDto,
     TenantServiceProxy,
-    FileParameter
+    FileParameter,
+    AddressDto,
+    ContactDto
 } from '@shared/service-proxies/service-proxies';
 import { FileUploader, FileUploaderOptions, FileItem } from 'ng2-file-upload';
 import { AppConsts } from "shared/AppConsts";
@@ -32,6 +34,8 @@ export class CreateTenantDialogComponent extends AppComponentBase implements OnI
     _uploaderOptions: FileUploaderOptions = {};
     fileName: string;
     @Output() uploadOutput: EventEmitter<any> = new EventEmitter<any>();
+    addressTypes: any[] = AppConsts.addressTypes;
+    contactTypes: any[] = AppConsts.contactTypes;
 
     constructor(
         injector: Injector,
@@ -44,6 +48,11 @@ export class CreateTenantDialogComponent extends AppComponentBase implements OnI
 
     ngOnInit(): void {
         this.tenant.isActive = true;
+        this.tenant.addresses = [];
+        this.tenant.addresses.push(new AddressDto());
+        this.tenant.contacts = [];
+        this.tenant.contacts.push(new ContactDto());
+
 
         this.uploader = new FileUploader({ url: AppConsts.remoteServiceBaseUrl + "/api/services/app/Tenant/UploadFile" });
         this.uploader.clearQueue();
@@ -68,7 +77,7 @@ export class CreateTenantDialogComponent extends AppComponentBase implements OnI
             this.saving = false;
             const resp = JSON.parse(response) as IAjaxResponse;
             if (resp.success) {
-                this.tenant.profilePhotoAttachmentId = resp.result;
+                this.tenant.schoolLogoAttachmentId = resp.result;
             } else
                 this.message.error(resp.error.message);
         };

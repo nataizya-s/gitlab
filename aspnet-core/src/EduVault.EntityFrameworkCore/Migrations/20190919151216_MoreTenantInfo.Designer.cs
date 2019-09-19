@@ -4,14 +4,16 @@ using EduVault.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EduVault.Migrations
 {
     [DbContext(typeof(EduVaultDbContext))]
-    partial class EduVaultDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190919151216_MoreTenantInfo")]
+    partial class MoreTenantInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1092,7 +1094,7 @@ namespace EduVault.Migrations
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("EduVault.Common.Contact", b =>
@@ -1122,15 +1124,13 @@ namespace EduVault.Migrations
 
                     b.Property<int>("Type");
 
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("Value");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("Contacts");
+                    b.ToTable("Contact");
                 });
 
             modelBuilder.Entity("EduVault.General.Attachment", b =>

@@ -115,5 +115,23 @@
 
 
     <text name="NoImage">No Image</text>
+    <text name="DeputyPrincipal">Deputy Principal</text>
+    <text name="Principal">Principal</text>
+    <text name="District">District</text>
+    <text name="Website">Website</text>
+    <text name="SchoolDetails">School Details</text>
+    <text name="Addresses">Addresses</text>
+    <text name="Address">Address</text>
+    <text name="Contacts">Contacts</text>
+    <text name="Contact">Contact</text>
+    <text name="Description">Description</text>
+    <text name="AddressLine1">Address Line 1</text>
+    <text name="AddressLine2">Address Line 2</text>
+    <text name="AddressLine3">Address Line 3</text>
+    <text name="Locality">Locality</text>
+    <text name="Region">Region</text>
+    <text name="Country">Country</text>
+    <text name="PostalCode">Postal Code</text>
+    <text name="Value">Value</text>
   </texts>
 </localizationDictionary>
