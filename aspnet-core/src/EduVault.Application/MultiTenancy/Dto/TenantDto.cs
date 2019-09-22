@@ -24,10 +24,10 @@ namespace EduVault.MultiTenancy.Dto
         public long? SchoolLogoAttachmentId { get; set; }
 
         [Required]
-        public List<AddressDto> Addresses { get; set; }
+        public List<TenantAddressDto> Addresses { get; set; }
 
         [Required]
-        public List<ContactDto> Contacts { get; set; }
+        public List<TenantContactDto> Contacts { get; set; }
 
         [MaxLength(100)]
         public string WebsiteAddress { get; set; }

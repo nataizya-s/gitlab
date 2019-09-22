@@ -2873,8 +2873,8 @@ export class CreateTenantDto implements ICreateTenantDto {
     connectionString: string | undefined;
     isActive: boolean | undefined;
     schoolLogoAttachmentId: number | undefined;
-    addresses: AddressDto[];
-    contacts: ContactDto[];
+    addresses: TenantAddressDto[];
+    contacts: TenantContactDto[];
     websiteAddress: string | undefined;
     principal: string;
     deputyPrincipal: string | undefined;
@@ -2904,12 +2904,12 @@ export class CreateTenantDto implements ICreateTenantDto {
             if (Array.isArray(data["addresses"])) {
                 this.addresses = [] as any;
                 for (let item of data["addresses"])
-                    this.addresses.push(AddressDto.fromJS(item));
+                    this.addresses.push(TenantAddressDto.fromJS(item));
             }
             if (Array.isArray(data["contacts"])) {
                 this.contacts = [] as any;
                 for (let item of data["contacts"])
-                    this.contacts.push(ContactDto.fromJS(item));
+                    this.contacts.push(TenantContactDto.fromJS(item));
             }
             this.websiteAddress = data["websiteAddress"];
             this.principal = data["principal"];
@@ -2965,12 +2965,118 @@ export interface ICreateTenantDto {
     connectionString: string | undefined;
     isActive: boolean | undefined;
     schoolLogoAttachmentId: number | undefined;
-    addresses: AddressDto[];
-    contacts: ContactDto[];
+    addresses: TenantAddressDto[];
+    contacts: TenantContactDto[];
     websiteAddress: string | undefined;
     principal: string;
     deputyPrincipal: string | undefined;
     district: string | undefined;
+}
+
+export class TenantAddressDto implements ITenantAddressDto {
+    address: AddressDto | undefined;
+    addressId: number | undefined;
+    tenantId: number | undefined;
+
+    constructor(data?: ITenantAddressDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.address = data["address"] ? AddressDto.fromJS(data["address"]) : <any>undefined;
+            this.addressId = data["addressId"];
+            this.tenantId = data["tenantId"];
+        }
+    }
+
+    static fromJS(data: any): TenantAddressDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TenantAddressDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["address"] = this.address ? this.address.toJSON() : <any>undefined;
+        data["addressId"] = this.addressId;
+        data["tenantId"] = this.tenantId;
+        return data; 
+    }
+
+    clone(): TenantAddressDto {
+        const json = this.toJSON();
+        let result = new TenantAddressDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ITenantAddressDto {
+    address: AddressDto | undefined;
+    addressId: number | undefined;
+    tenantId: number | undefined;
+}
+
+export class TenantContactDto implements ITenantContactDto {
+    contact: ContactDto | undefined;
+    contactId: number | undefined;
+    tenantId: number | undefined;
+    id: number | undefined;
+
+    constructor(data?: ITenantContactDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.contact = data["contact"] ? ContactDto.fromJS(data["contact"]) : <any>undefined;
+            this.contactId = data["contactId"];
+            this.tenantId = data["tenantId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): TenantContactDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TenantContactDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["contact"] = this.contact ? this.contact.toJSON() : <any>undefined;
+        data["contactId"] = this.contactId;
+        data["tenantId"] = this.tenantId;
+        data["id"] = this.id;
+        return data; 
+    }
+
+    clone(): TenantContactDto {
+        const json = this.toJSON();
+        let result = new TenantContactDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ITenantContactDto {
+    contact: ContactDto | undefined;
+    contactId: number | undefined;
+    tenantId: number | undefined;
+    id: number | undefined;
 }
 
 export class AddressDto implements IAddressDto {
@@ -3112,8 +3218,8 @@ export class TenantDto implements ITenantDto {
     name: string;
     isActive: boolean | undefined;
     schoolLogoAttachmentId: number | undefined;
-    addresses: AddressDto[];
-    contacts: ContactDto[];
+    addresses: TenantAddressDto[];
+    contacts: TenantContactDto[];
     websiteAddress: string | undefined;
     principal: string;
     deputyPrincipal: string | undefined;
@@ -3142,12 +3248,12 @@ export class TenantDto implements ITenantDto {
             if (Array.isArray(data["addresses"])) {
                 this.addresses = [] as any;
                 for (let item of data["addresses"])
-                    this.addresses.push(AddressDto.fromJS(item));
+                    this.addresses.push(TenantAddressDto.fromJS(item));
             }
             if (Array.isArray(data["contacts"])) {
                 this.contacts = [] as any;
                 for (let item of data["contacts"])
-                    this.contacts.push(ContactDto.fromJS(item));
+                    this.contacts.push(TenantContactDto.fromJS(item));
             }
             this.websiteAddress = data["websiteAddress"];
             this.principal = data["principal"];
@@ -3201,8 +3307,8 @@ export interface ITenantDto {
     name: string;
     isActive: boolean | undefined;
     schoolLogoAttachmentId: number | undefined;
-    addresses: AddressDto[];
-    contacts: ContactDto[];
+    addresses: TenantAddressDto[];
+    contacts: TenantContactDto[];
     websiteAddress: string | undefined;
     principal: string;
     deputyPrincipal: string | undefined;

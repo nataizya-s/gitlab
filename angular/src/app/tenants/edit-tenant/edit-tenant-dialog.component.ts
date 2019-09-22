@@ -5,7 +5,11 @@ import { AppComponentBase } from '@shared/app-component-base';
 import {
     TenantServiceProxy,
     TenantDto,
-    SchoolServiceProxy
+    SchoolServiceProxy,
+    TenantAddressDto,
+    AddressDto,
+    TenantContactDto,
+    ContactDto
 } from '@shared/service-proxies/service-proxies';
 import { FileUploader, FileUploaderOptions, FileItem } from 'ng2-file-upload';
 import { AppConsts } from "shared/AppConsts";

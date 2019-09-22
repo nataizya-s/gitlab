@@ -16,4 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\EduVault.Core\EduVault.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="LearnerProfile\" />
+  </ItemGroup>
 </Project>

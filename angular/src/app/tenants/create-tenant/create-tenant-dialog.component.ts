@@ -6,7 +6,9 @@ import {
     CreateTenantDto,
     TenantServiceProxy,
     FileParameter,
+    TenantAddressDto,
     AddressDto,
+    TenantContactDto,
     ContactDto
 } from '@shared/service-proxies/service-proxies';
 import { FileUploader, FileUploaderOptions, FileItem } from 'ng2-file-upload';
@@ -49,9 +51,13 @@ export class CreateTenantDialogComponent extends AppComponentBase implements OnI
     ngOnInit(): void {
         this.tenant.isActive = true;
         this.tenant.addresses = [];
-        this.tenant.addresses.push(new AddressDto());
+        var a = new TenantAddressDto();
+        a.address = new AddressDto();
+        this.tenant.addresses.push(a);
         this.tenant.contacts = [];
-        this.tenant.contacts.push(new ContactDto());
+        var c = new TenantContactDto();
+        c.contact = new ContactDto();
+        this.tenant.contacts.push(c);
 
 
         this.uploader = new FileUploader({ url: AppConsts.remoteServiceBaseUrl + "/api/services/app/Tenant/UploadFile" });

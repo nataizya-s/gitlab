@@ -4,14 +4,16 @@ using EduVault.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EduVault.Migrations
 {
     [DbContext(typeof(EduVaultDbContext))]
-    partial class EduVaultDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190920140937_ManyToManyTableAdded")]
+    partial class ManyToManyTableAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

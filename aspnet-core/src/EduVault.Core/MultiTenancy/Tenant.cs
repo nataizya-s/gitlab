@@ -11,10 +11,10 @@ namespace EduVault.MultiTenancy
         public long? SchoolLogoAttachmentId { get; set; }
 
         [Required]
-        public List<Address> Addresses { get; set; }
+        public List<TenantAddress> Addresses { get; set; }
 
         [Required]
-        public List<Contact> Contacts { get; set; }
+        public List<TenantContact> Contacts { get; set; }
 
         [MaxLength(100)]
         public string WebsiteAddress { get; set; }

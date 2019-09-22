@@ -97,7 +97,7 @@
                     <div *ngFor="let address of tenant.addresses; let in = index;" class="row-fluid">
                         <div class="col-md-6">
                             <mat-form-field>
-                                <mat-select required [placeholder]="l('Type')" [(ngModel)]="address.type" name="addressType[{{in}}]">
+                                <mat-select required [placeholder]="l('Type')" [(ngModel)]="address.address.type" name="addressType[{{in}}]">
                                     <mat-option *ngFor="let addressType of addressTypes;" [value]="addressType.id">{{ addressType.value }}</mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -107,7 +107,7 @@
                                 <input matInput
                                        name="Description[{{in}}]"
                                        [placeholder]="'Description' | localize"
-                                       [(ngModel)]="address.description"
+                                       [(ngModel)]="address.address.description"
                                        required
                                        maxlength="200" />
                             </mat-form-field>
@@ -117,7 +117,7 @@
                                 <input matInput
                                        name="AddressLine1[{{in}}]"
                                        [placeholder]="'AddressLine1' | localize"
-                                       [(ngModel)]="address.addressLine1"
+                                       [(ngModel)]="address.address.addressLine1"
                                        required
                                        maxlength="100" />
                             </mat-form-field>
@@ -127,7 +127,7 @@
                                 <input matInput
                                        name="AddressLine2[{{in}}]"
                                        [placeholder]="'AddressLine2' | localize"
-                                       [(ngModel)]="address.addressLine2"
+                                       [(ngModel)]="address.address.addressLine2"
                                        maxlength="100" />
                             </mat-form-field>
                         </div>
@@ -136,7 +136,7 @@
                                 <input matInput
                                        name="AddressLine3[{{in}}]"
                                        [placeholder]="'AddressLine3' | localize"
-                                       [(ngModel)]="address.addressLine3"
+                                       [(ngModel)]="address.address.addressLine3"
                                        maxlength="100" />
                             </mat-form-field>
                         </div>
@@ -145,7 +145,7 @@
                                 <input matInput
                                        name="Locality[{{in}}]"
                                        [placeholder]="'Locality' | localize"
-                                       [(ngModel)]="address.locality"
+                                       [(ngModel)]="address.address.locality"
                                        required
                                        maxlength="100" />
                             </mat-form-field>
@@ -155,7 +155,7 @@
                                 <input matInput
                                        name="Region[{{in}}]"
                                        [placeholder]="'Region' | localize"
-                                       [(ngModel)]="address.region"
+                                       [(ngModel)]="address.address.region"
                                        required
                                        maxlength="100" />
                             </mat-form-field>
@@ -165,7 +165,7 @@
                                 <input matInput
                                        name="Country[{{in}}]"
                                        [placeholder]="'Country' | localize"
-                                       [(ngModel)]="address.country"
+                                       [(ngModel)]="address.address.country"
                                        required
                                        maxlength="100" />
                             </mat-form-field>
@@ -175,7 +175,7 @@
                                 <input matInput
                                        name="PostalCode[{{in}}]"
                                        [placeholder]="'PostalCode' | localize"
-                                       [(ngModel)]="address.postalCode"
+                                       [(ngModel)]="address.address.postalCode"
                                        required
                                        maxlength="100" />
                             </mat-form-field>
@@ -189,7 +189,7 @@
                     <div *ngFor="let contact of tenant.contacts; let in = index;" class="row-fluid">
                         <div class="col-md-6">
                             <mat-form-field>
-                                <mat-select required [placeholder]="l('Type')" [(ngModel)]="contact.type" name="contactType[{{in}}]">
+                                <mat-select required [placeholder]="l('Type')" [(ngModel)]="contact.contact.type" name="contactType[{{in}}]">
                                     <mat-option *ngFor="let contactType of contactTypes;" [value]="contactType.id">{{ contactType.value }}</mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -199,7 +199,7 @@
                                 <input matInput
                                        name="Description[{{in}}]"
                                        [placeholder]="'Description' | localize"
-                                       [(ngModel)]="contact.description"
+                                       [(ngModel)]="contact.contact.description"
                                        required
                                        maxlength="200" />
                             </mat-form-field>
@@ -209,7 +209,7 @@
                                 <input matInput
                                        name="Value[{{in}}]"
                                        [placeholder]="'Value' | localize"
-                                       [(ngModel)]="contact.value"
+                                       [(ngModel)]="contact.contact.value"
                                        required
                                        maxlength="100" />
                             </mat-form-field>

@@ -1,0 +1,3 @@
+﻿Make Address and Contact general objects
+	Using linking object between tenant and general objects
+	Avoid error by adding TenantId to address object

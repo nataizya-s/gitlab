@@ -184,8 +184,8 @@ namespace EduVault.MultiTenancy
             entity.TenancyName = updateInput.TenancyName;
             entity.IsActive = updateInput.IsActive;
             entity.SchoolLogoAttachmentId = updateInput.SchoolLogoAttachmentId;
-            entity.Addresses = ObjectMapper.Map<List<Address>>(updateInput.Addresses);
-            entity.Contacts = ObjectMapper.Map<List<Contact>>(updateInput.Contacts);
+            entity.Addresses = ObjectMapper.Map<List<TenantAddress>>(updateInput.Addresses);
+            entity.Contacts = ObjectMapper.Map<List<TenantContact>>(updateInput.Contacts);
             entity.Principal = updateInput.Principal;
             entity.DeputyPrincipal = updateInput.DeputyPrincipal;
             entity.District = updateInput.District;
@@ -208,7 +208,9 @@ namespace EduVault.MultiTenancy
         protected override Task<Tenant> GetEntityByIdAsync(int id)
         {
             return Repository
-                .GetAllIncluding(c => c.Addresses, c => c.Contacts)
+                .GetAll()
+                .Include(c=> c.Addresses).ThenInclude(c=>c.Address)
+                .Include(c=> c.Contacts).ThenInclude(c=>c.Contact)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
     }
