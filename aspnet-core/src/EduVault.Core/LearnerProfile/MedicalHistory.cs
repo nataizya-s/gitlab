@@ -17,9 +17,9 @@ namespace EduVault.LearnerProfile
         public Contact FamilyPractitionerContact { get; set; }
         public int? FamilyPractitionerContactId { get; set; }
 
-        public List<Allergy> AllergiesList { get; set; }
+        public List<MedicalNote> AllergiesList { get; set; }
 
-        public List<ChronicIllness> ChronicIllnessList{ get; set; }
+        public List<MedicalNote> ChronicIllnessList{ get; set; }
 
         [CanBeNull]
         [MaxLength(100)]

@@ -3,12 +3,12 @@ using Abp.Domain.Entities.Auditing;
 
 namespace EduVault.LearnerProfile
 {
-    public class ChronicIllness : FullAuditedEntity
+    public class MedicalNote: FullAuditedEntity
     {
+        [MaxLength(100)]
+        public string Issue { get; set; }
+
         [MaxLength(500)]
         public string DescriptionNotes { get; set; }
-
-        [MaxLength(100)]
-        public string Illness { get; set; }
     }
 }

@@ -20,8 +20,7 @@ namespace EduVault.EntityFrameworkCore
         public DbSet<LearnerProfileAttachment> LearnerProfileAttachments { get; set; }
         public DbSet<Guardian> Guardians { get; set; }
         public DbSet<MedicalHistory> MedicalHistories { get; set; }
-        public DbSet<Allergy> Allergies { get; set; }
-        public DbSet<ChronicIllness> ChronicIllnesses { get; set; }
+        public DbSet<MedicalNote> MedicalNotes { get; set; }
         public DbSet<SchoolAttended> SchoolsAttended { get; set; }
         public DbSet<Absent> Absence { get; set; }
         public DbSet<Comment> Comments { get; set; }
