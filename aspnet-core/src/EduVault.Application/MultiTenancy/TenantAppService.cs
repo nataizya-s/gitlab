@@ -18,7 +18,6 @@ using EduVault.Authorization.Roles;
 using EduVault.Authorization.Users;
 using EduVault.Common;
 using EduVault.Editions;
-using EduVault.General;
 using EduVault.Helpers;
 using EduVault.MultiTenancy.Dto;
 using Microsoft.AspNetCore.Http;

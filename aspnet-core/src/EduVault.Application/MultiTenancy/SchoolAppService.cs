@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Abp.Application.Services;
 using Abp.Domain.Repositories;
-using EduVault.General;
+using EduVault.Common;
 using EduVault.Helpers;
 
 namespace EduVault.MultiTenancy
