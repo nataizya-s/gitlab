@@ -1,0 +1,17 @@
+image: microsoft/dotnet:latest
+
+stages:
+  - build
+  - test
+
+variables:
+  dir: "/home/devinnorm/EduVault/publish/"
+
+before_script:
+  - "cd $dir"
+  - "dotnet restore"
+
+build:
+  stage: build
+  script:
+    - "dotnet build"
