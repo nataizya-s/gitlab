@@ -2,6 +2,13 @@ image: microsoft/dotnet:latest
 
 stages:
   - build
+  - test
+
+variables:
+  dir: "/aspnet-core/"
+
+before_script:
+  - "cd $dir"
 
 build:
   stage: build
