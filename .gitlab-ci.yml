@@ -9,9 +9,9 @@ variables:
 
 before_script:
   - "export ASPNETCORE_Environment=Development"
-  - "cd aspnet-core/build"
+  - "cd EduVault"
 
 build:
   stage: build
   script:
-    - "sudo ./build-with-ng.ps1"
+    - "dotnet build"
