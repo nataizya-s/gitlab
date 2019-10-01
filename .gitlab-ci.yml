@@ -5,14 +5,13 @@ stages:
   - test
 
 variables:
-  dir: "~/aspnet-core/"
+  dir: "aspnet-core/"
 
 before_script:
   - "export ASPNETCORE_Environment=Development"
-  - "ls"
-  - "dotnet restore"
+  - "cd aspnet-core/build"
 
 build:
   stage: build
   script:
-    - "dotnet build"
+    - ".\build-with-ng.ps1"
