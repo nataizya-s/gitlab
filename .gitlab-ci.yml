@@ -8,7 +8,6 @@ variables:
   dir: "/home/devinnorm/EduVault/publish/"
 
 before_script:
-  - "cd $dir"
   - "dotnet restore"
 
 build:
