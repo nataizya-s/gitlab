@@ -9,6 +9,8 @@ variables:
 
 before_script:
   - "export ASPNETCORE_Environment=Development"
+  - "ls"
+  - "dotnet restore"
 
 build:
   stage: build
