@@ -2,13 +2,6 @@ image: microsoft/dotnet:latest
 
 stages:
   - build
-  - test
-
-variables:
-  dir: "/home/devinnorm/EduVault/publish/"
-
-before_script:
-  - "dotnet clean"
 
 build:
   stage: build
