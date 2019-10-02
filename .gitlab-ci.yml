@@ -10,8 +10,9 @@ variables:
 before_script:
   - "export ASPNETCORE_Environment=Development"
   - "cd EduVault"
+  - "dotnet publish"
 
 build:
   stage: build
   script:
-    - "dotnet publish"
+    - "ls"
