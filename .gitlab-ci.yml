@@ -20,3 +20,4 @@ build:
   stage: build
   script:
     - "dotnet publish"
+    - "ls"
