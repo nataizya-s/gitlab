@@ -15,14 +15,9 @@ before_script:
   - echo "$SSH_PRIVATE_KEY" | ssh-add -
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
+  - "ls -la ~/.ssh"
 
 build:
   stage: build
   script:
     - "dotnet publish"
-
-deploy:
-  stage: deploy 
-  script:
-    - "ssh -i ~/.ssh/id_rsa.pub nataizya_s@104.154.235.209"
-    - "ls"
