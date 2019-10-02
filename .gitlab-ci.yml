@@ -2,7 +2,7 @@ image: microsoft/dotnet:latest
 
 stages:
   - build
-  - test
+  - deploy
 
 variables:
   dir: "aspnet-core/"
@@ -20,4 +20,9 @@ build:
   stage: build
   script:
     - "dotnet publish"
+
+deploy:
+  stage: deploy 
+  script:
+    - "ssh -i ~/.ssh/id_rsa.pub nataizya_s@104.154.235.209"
     - "ls"
