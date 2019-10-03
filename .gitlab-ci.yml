@@ -8,12 +8,16 @@ variables:
   dir: "aspnet-core/"
 
 before_script:
-  - "export ASPNETCORE_Environment=Development"
-  - "cd EduVault"
+  - export ASPNETCORE_Environment=Development
+  - cd EduVault
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-  - "eval $(ssh-agent -s)"
-  - ssh-add <(echo "$SSH_PRIVATE_KEY")
-
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan  104.154.235.209 >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  - ssh nataizya_s@104.154.235.209
 #build:
  # stage: build
   #script:
@@ -22,5 +26,4 @@ before_script:
 deploy:
   stage: deploy 
   script:
-    - "ssh nataizya_s@104.154.235.209"
     - "ls -la"
