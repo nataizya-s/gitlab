@@ -18,14 +18,18 @@ before_script:
   - ssh-keyscan  104.154.235.209 >> ~/.ssh/known_hosts
   - chmod 644 ~/.ssh/known_hosts
 
-#build:
- # stage: build
-  #script:
-   # - "echo 'doing build'"
+build:
+  stage: build
+  script:
+    - ls -la 
+    - dotnet publish 
+  artifacts:
+    untracked: true
 
 deploy:
   stage: deploy 
+  dependencies:
+    - build
   script:
-    - dotnet publish
     - ls -la
     #- ssh -T nataizya_s@104.154.235.209 "pwd"
