@@ -27,4 +27,4 @@ build:
 deploy:
   stage: deploy 
   script:
-    - "ls -la"
+    - "ls -la ~/.ssh"
