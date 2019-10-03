@@ -9,7 +9,7 @@ variables:
 
 before_script:
   - export ASPNETCORE_Environment=Development
-  - cd EduVault
+  #- cd EduVault
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - eval $(ssh-agent -s)
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
@@ -21,8 +21,8 @@ before_script:
 build:
   stage: build
   script:
-    - ls -la
-    - dotnet publish --self-contained
+    - cd aspnet-core/src/EduVault.Web.Host
+    - dotnet publish EduVault.Web.Host.csproj --self-contained
     - ls -la ./bin
   artifacts:
     untracked: true
@@ -32,5 +32,5 @@ deploy:
   dependencies:
     - build
   script:
-    - ls -la
+    - ls -la 
     #- ssh -T nataizya_s@104.154.235.209 "pwd"
