@@ -30,5 +30,5 @@ deploy:
     - aspnet_build
   script:
     - ssh -T nataizya_s@$host "ls"
-    - ls ~/gitlab
+    - ls /builds/nataizya/gitlab
     #- scp -r ~/gitlab/ nataizya_s@$host:/home/nataizya_s/app
