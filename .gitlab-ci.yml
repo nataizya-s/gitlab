@@ -27,5 +27,5 @@ deploy:
   stage: deploy 
   script:
     - dotnet publish
-    - ls
-    - ssh -T nataizya_s@104.154.235.209 "pwd"
+    - ls -la /publish
+    #- ssh -T nataizya_s@104.154.235.209 "pwd"
