@@ -29,7 +29,7 @@ aspnet_build:
 deploy:
   stage: deploy 
   dependencies:
-    - build
+    - aspnet_build
   script:
     - ls -la aspnet-core
     - ls
