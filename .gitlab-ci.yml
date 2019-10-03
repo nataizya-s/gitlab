@@ -32,5 +32,5 @@ deploy:
   dependencies:
     - build
   script:
-    - ls -la EduVault
+    - ls -la aspnet-core
     #- ssh -T nataizya_s@104.154.235.209 "pwd"
