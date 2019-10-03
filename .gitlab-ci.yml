@@ -11,20 +11,21 @@ before_script:
   - "export ASPNETCORE_Environment=Development"
   - "cd EduVault"
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-  - eval $(ssh-agent -s)
-  - echo "$SSH_PRIVATE_KEY" | ssh-add -
-  - echo "$SSH_PRIVATE_KEY" > id_rsa 
-  - chmod 400 id_rsa
-  - mkdir -p ~/.ssh
-  - chmod 700 ~/.ssh
-  - mv id_rsa ~/.ssh 
+  - "eval $(ssh-agent -s)"
+  - "echo '$SSH_PRIVATE_KEY' | ssh-add -"
+  - "echo '$SSH_PRIVATE_KEY' > id_rsa"
+  - "chmod 400 id_rsa"
+  - "mkdir -p ~/.ssh"
+  - "chmod 700 ~/.ssh"
+  - "mv id_rsa ~/.ssh"
 
-build:
-  stage: build
-  script:
-    - "echo 'doing build'"
+#build:
+ # stage: build
+  #script:
+   # - "echo 'doing build'"
 
 deploy:
   stage: deploy 
   script:
-    - "ls -la ~/.ssh"
+    - "ssh -i ~/.ssh/id_rsa nataizya_s@104.154.235.209"
+    - "ls -la"
