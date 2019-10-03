@@ -21,9 +21,8 @@ before_script:
 build:
   stage: build
   script:
-    - ls -la 
-    - mkdir Test
-    - dotnet publish EduVault --self-contained
+    - ls -la
+    - dotnet publish --self-contained
     - ls -la ./bin
   artifacts:
     untracked: true
