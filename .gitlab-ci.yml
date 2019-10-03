@@ -12,12 +12,7 @@ before_script:
   - "cd EduVault"
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - "eval $(ssh-agent -s)"
-  - "echo '$SSH_PRIVATE_KEY' | ssh-add -"
-  - "echo '$SSH_PRIVATE_KEY' > id_rsa"
-  - "chmod 400 id_rsa"
-  - "mkdir -p ~/.ssh"
-  - "chmod 700 ~/.ssh"
-  - "mv id_rsa ~/.ssh"
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
 
 #build:
  # stage: build
@@ -27,5 +22,5 @@ before_script:
 deploy:
   stage: deploy 
   script:
-    - "ssh -i ~/.ssh/id_rsa nataizya_s@104.154.235.209"
+    - "ssh nataizya_s@104.154.235.209"
     - "ls -la"
