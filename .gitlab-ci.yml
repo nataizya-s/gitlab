@@ -27,4 +27,4 @@ deploy:
   stage: deploy 
   script:
     - ssh nataizya_s@104.154.235.209
-    - ls -la
+    - pwd
