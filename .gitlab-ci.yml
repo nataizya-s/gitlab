@@ -22,7 +22,8 @@ build:
   stage: build
   script:
     - ls -la 
-    - dotnet publish 
+    - mkdir Test
+    - dotnet publish Devin -o /Test --self-contained
   artifacts:
     untracked: true
 
