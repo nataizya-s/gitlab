@@ -23,7 +23,7 @@ build:
   script:
     - cd aspnet-core/src/EduVault.Web.Host
     - dotnet publish EduVault.Web.Host.csproj --configuration Release --self-contained --runtime linux-x64 --framework netcoreapp2.2
-    - ls -la ./bin
+    - ls -la ./bin/Release/netcoreapp2.2/linux-x64/publish
   artifacts:
     untracked: true
 
