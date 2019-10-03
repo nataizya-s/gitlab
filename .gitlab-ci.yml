@@ -31,4 +31,4 @@ deploy:
   script:
     - ssh -T nataizya_s@$host "ls"
     - ls /builds/nataizya/gitlab
-    #- scp -r ~/gitlab/ nataizya_s@$host:/home/nataizya_s/app
+    - scp -r /builds/nataizya/gitlab/* nataizya_s@$host:/home/nataizya_s/app
