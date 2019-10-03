@@ -22,6 +22,7 @@ aspnet_build:
     - cd aspnet-core/src/EduVault.Web.Host
     - dotnet publish EduVault.Web.Host.csproj --configuration Release --self-contained --runtime linux-x64 --framework netcoreapp2.2
   artifacts:
+    untracked: true
     paths:
     - ./bin/Release/netcoreapp2.2/linux-x64/publish/
     expire_in: 1 week
@@ -32,6 +33,6 @@ deploy:
     - aspnet_build
   script:
     - ssh -T nataizya_s@$host "ls"
-    #- ls /builds/nataizya/gitlab
-    #- scp -r /builds/nataizya/gitlab/* nataizya_s@$host:/home/nataizya_s/app
-    #- ssh -T nataizya_s@host "cd /app/"
+    - ls /builds/nataizya/gitlab
+    - scp -r /builds/nataizya/gitlab/* nataizya_s@$host:/home/nataizya_s/app
+    - ssh -T nataizya_s@host "cd /app/"
