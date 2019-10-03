@@ -17,7 +17,7 @@ before_script:
   - chmod 700 ~/.ssh
   - ssh-keyscan  104.154.235.209 >> ~/.ssh/known_hosts
   - chmod 644 ~/.ssh/known_hosts
-  - ssh nataizya_s@104.154.235.209
+
 #build:
  # stage: build
   #script:
@@ -26,4 +26,5 @@ before_script:
 deploy:
   stage: deploy 
   script:
-    - "ls -la"
+    - ssh nataizya_s@104.154.235.209
+    - ls -la
