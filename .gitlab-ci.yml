@@ -5,7 +5,7 @@ stages:
   - deploy
 
 variables:
-  dir: "aspnet-core/"
+  host: "104.154.235.209"
 
 before_script:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
@@ -13,7 +13,7 @@ before_script:
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
-  - ssh-keyscan  104.154.235.209 >> ~/.ssh/known_hosts
+  - ssh-keyscan  $host >> ~/.ssh/known_hosts
   - chmod 644 ~/.ssh/known_hosts
 
 aspnet_build:
@@ -29,4 +29,5 @@ deploy:
   dependencies:
     - aspnet_build
   script:
-    - ssh -T nataizya_s@104.154.235.209 "ls"
+    - ssh -T nataizya_s@$host "ls"
+    - scp -r . nataizya_s@$host:/home/nataizya_s/app
