@@ -23,7 +23,8 @@ build:
   script:
     - ls -la 
     - mkdir Test
-    - dotnet publish Devin -o /Test --self-contained
+    - dotnet publish EduVault --self-contained
+    - ls -la ./bin
   artifacts:
     untracked: true
 
