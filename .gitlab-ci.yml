@@ -39,12 +39,20 @@ aspnet_deploy:
 
 angular_build:
   image: node:latest
-  stage: deploy
-  dependencies:
-    - aspnet_deploy
+  stage: build
   script:
     - npm install --save-dev @angular-devkit/build-angular
     - ng build --prod
+  artifacts:
+    untracked: true
+
+angular_deploy:
+  image: node:latest
+  stage: build
+  dependencies:
+    - angular_build
+  script:
+    - npm install --save-dev @angular-devkit/build-angular
     - scp -r /builds/nataizya/gitlab/angular/dist/* nataizya_s@$host:/home/nataizya_s/app/angular/dist
     - ssh -T nataizya_s@$host "ng serve"
 
