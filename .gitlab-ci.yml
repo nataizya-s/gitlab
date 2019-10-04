@@ -41,7 +41,7 @@ angular_build:
   image: node:latest
   stage: build
   script:
-    - npm install --save-dev @angular-devkit/build-angular
+    - npm install -g angular-cli
     - ng build --prod
   artifacts:
     untracked: true
@@ -52,7 +52,7 @@ angular_deploy:
   dependencies:
     - angular_build
   script:
-    - npm install --save-dev @angular-devkit/build-angular
+    - npm install -g angular-cli
     - scp -r /builds/nataizya/gitlab/angular/dist/* nataizya_s@$host:/home/nataizya_s/app/angular/dist
     - ssh -T nataizya_s@$host "ng serve"
 
