@@ -34,6 +34,5 @@ deploy:
   dependencies:
     - aspnet_build
   script:
-    - ls /builds/nataizya/gitlab
     - scp -r /builds/nataizya/gitlab/* nataizya_s@$host:/home/nataizya_s/app
-    - ssh -T nataizya_s@$host "systemclt restart eduvault"
+    - ssh -T nataizya_s@$host "systemctl restart eduvault"
