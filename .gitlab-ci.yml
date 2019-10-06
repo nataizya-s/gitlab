@@ -37,22 +37,22 @@ before_script:
 #    - scp -r /builds/nataizya/gitlab/aspnet-core/* nataizya_s@$host:/home/nataizya_s/app/aspnet-core
 #    - ssh -T nataizya_s@$host "sudo systemctl restart eduvault"
 
-#angular_build:
-#  image: node
-#  stage: build
-#  script:
-#    - npm install -g @angular/cli
-#    - cd angular
-#    - npm install --save-dev @angular-devkit/build-angular
-#    - ng build --prod
-#  artifacts:
-#    untracked: true
+angular_build:
+  image: node
+  stage: build
+  script:
+    - npm install -g @angular/cli
+    - cd angular
+    - npm install --save-dev @angular-devkit/build-angular
+    - ng build --prod
+  artifacts:
+    untracked: true
 
 angular_deploy:
   image: ubuntu
   stage: deploy
-#  dependencies:
-#    - angular_build
+  dependencies:
+    - angular_build
   script:
     - scp -r /builds/nataizya/gitlab/angular/dist/ nataizya_s@$host:/home/nataizya_s/angular
 
