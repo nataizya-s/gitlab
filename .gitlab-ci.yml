@@ -38,19 +38,21 @@ before_script:
 #    - ssh -T nataizya_s@$host "sudo systemctl restart eduvault"
 
 angular_build:
-  image: nataizya/gitlab-angular
+  image: node
   stage: build
   script:
+    - npm install -g @angular/cli
     - cd angular
+    - npm install --save-dev @angular-devkit/build-angular
     - ng build --prod
-  #artifacts:
-   # untracked: true
+  artifacts:
+    untracked: true
 
-#angular_deploy:
-  #image: trion/ng-cli:latest
-  #stage: deploy
-  #dependencies:
-  #  - angular_build
-  #script:
-  #  - scp -r /builds/nataizya/gitlab/angular/dist/* nataizya_s@$host:/var/www/html
+angular_deploy:
+  image: node
+  stage: deploy
+  dependencies:
+    - angular_build
+  script:
+    - scp -r /builds/nataizya/gitlab/angular/dist/* nataizya_s@$host:/var/www/html
 
