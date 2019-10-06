@@ -15,30 +15,30 @@ before_script:
   - ssh-keyscan  $host >> ~/.ssh/known_hosts
   - chmod 644 ~/.ssh/known_hosts
 
-aspnet_build:
-  image: microsoft/dotnet:latest
-  stage: build
-  script:
-    - cd aspnet-core/src/EduVault.Web.Host
-    - dotnet publish EduVault.Web.Host.csproj --configuration Release --self-contained --runtime linux-x64 --framework netcoreapp2.2
-    - ls -la ./bin/Release/netcoreapp2.2/linux-x64/publish/
-  artifacts:
-    untracked: true
+#aspnet_build:
+#  image: microsoft/dotnet:latest
+#  stage: build
+#  script:
+#    - cd aspnet-core/src/EduVault.Web.Host
+#    - dotnet publish EduVault.Web.Host.csproj --configuration Release --self-contained --runtime linux-x64 --framework netcoreapp2.2
+#    - ls -la ./bin/Release/netcoreapp2.2/linux-x64/publish/
+#  artifacts:
+#    untracked: true
     #paths:
     #- ./bin/Release/netcoreapp2.2/linux-x64/publish/
     #expire_in: 1 week
 
-aspnet_deploy:
-  image: microsoft/dotnet:latest
-  stage: deploy 
-  dependencies:
-    - aspnet_build
-  script:
-    - scp -r /builds/nataizya/gitlab/aspnet-core/* nataizya_s@$host:/home/nataizya_s/app/aspnet-core
-    - ssh -T nataizya_s@$host "sudo systemctl restart eduvault"
+#aspnet_deploy:
+#  image: microsoft/dotnet:latest
+#  stage: deploy 
+#  dependencies:
+#    - aspnet_build
+#  script:
+#    - scp -r /builds/nataizya/gitlab/aspnet-core/* nataizya_s@$host:/home/nataizya_s/app/aspnet-core
+#    - ssh -T nataizya_s@$host "sudo systemctl restart eduvault"
 
 angular_build:
-  image: trion/ng-cli
+  image: node
   stage: build
   script:
     - npm install --save-dev @angular-devkit/build-angular
