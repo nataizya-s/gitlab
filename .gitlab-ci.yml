@@ -54,6 +54,5 @@ angular_deploy:
 #  dependencies:
 #    - angular_build
   script:
-    - apt-get update -qq && apt-get install -y -qq sshpass
-    - scp -r /builds/nataizya/gitlab/angular/dist/* nataizya_s@$host:/home/nataizya_s/angular
+    - scp -r /builds/nataizya/gitlab/angular/dist/ nataizya_s@$host:/home/nataizya_s/angular
 
