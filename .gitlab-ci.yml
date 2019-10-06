@@ -41,6 +41,7 @@ angular_build:
   image: trion/ng-cli
   stage: build
   script:
+    - npm install --save-dev @angular-devkit/build-angular
     - npm install @angular/cli --save-dev
     - cd angular
     - ng build
