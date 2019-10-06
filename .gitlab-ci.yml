@@ -41,7 +41,7 @@ angular_build:
   image: trion/ng-cli:latest
   stage: build
   script:
-    - cd anglular
+    - cd angular
     - ls -la
     #- ng build --prod
   #artifacts:
