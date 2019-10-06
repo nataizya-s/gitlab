@@ -41,16 +41,16 @@ angular_build:
   image: trion/ng-cli:latest
   stage: build
   script:
-    - cd app/angular
-    - ng build --prod
-  artifacts:
-    untracked: true
+    - ls -la
+    #- ng build --prod
+  #artifacts:
+   # untracked: true
 
-angular_deploy:
-  image: trion/ng-cli:latest
-  stage: deploy
-  dependencies:
-    - angular_build
-  script:
-    - scp -r /builds/nataizya/gitlab/angular/dist/* nataizya_s@$host:/var/www/html
+#angular_deploy:
+  #image: trion/ng-cli:latest
+  #stage: deploy
+  #dependencies:
+  #  - angular_build
+  #script:
+  #  - scp -r /builds/nataizya/gitlab/angular/dist/* nataizya_s@$host:/var/www/html
 
