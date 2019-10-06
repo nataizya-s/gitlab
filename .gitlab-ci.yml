@@ -42,7 +42,7 @@ angular_build:
   stage: build
   script:
     - cd angular
-    - ls -la
+    - ng build --prod
     #- ng build --prod
   #artifacts:
    # untracked: true
