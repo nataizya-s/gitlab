@@ -38,7 +38,7 @@ aspnet_deploy:
     - ssh -T nataizya_s@$host "sudo systemctl restart eduvault"
 
 angular_build:
-  image: trion/ng-cli:latest
+  image: angular/ngcontainer:latest
   stage: build
   script:
     - cd angular
@@ -48,7 +48,7 @@ angular_build:
    # untracked: true
 
 #angular_deploy:
-  #image: trion/ng-cli:latest
+  #image: angular/ngcontainer:latest
   #stage: deploy
   #dependencies:
   #  - angular_build
