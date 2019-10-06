@@ -49,7 +49,7 @@ before_script:
 #    untracked: true
 
 angular_deploy:
-  image: ubuntu
+  image: node
   stage: deploy
 #  dependencies:
 #    - angular_build
