@@ -42,7 +42,7 @@ angular_build:
   stage: build
   script:
     - npm install --save-dev @angular-devkit/build-angular
-    - npm install @angular/cli --save-dev
+    - npm i @angular/compiler-cli
     - cd angular
     - ng build
     #- ng build --prod
