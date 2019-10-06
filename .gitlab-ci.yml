@@ -42,8 +42,7 @@ angular_build:
   stage: build
   script:
     - npm install -g @angular/cli
-    - ng --version
-    #- ng build --prod
+    - ng build --prod
   #artifacts:
    # untracked: true
 
