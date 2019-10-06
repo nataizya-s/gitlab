@@ -49,10 +49,10 @@ before_script:
 #    untracked: true
 
 angular_deploy:
-  image: node
+  image: ubuntu
   stage: deploy
 #  dependencies:
 #    - angular_build
   script:
-    - sudo scp -r /builds/nataizya/gitlab/angular/dist/* root@$host:/var/www/html
+    - scp -r /builds/nataizya/gitlab/angular/dist/* root@$host:/var/www/html
 
