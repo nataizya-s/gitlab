@@ -43,6 +43,7 @@ angular_build:
   script:
     - npm install -g @angular/cli
     - cd angular
+    - npm install --save-dev @angular-devkit/build-angular
     - ng build --prod
   #artifacts:
    # untracked: true
