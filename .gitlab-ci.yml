@@ -41,10 +41,8 @@ angular_build:
   image: node
   stage: build
   script:
-    - npm install --save-dev @angular-devkit/build-angular
-    - npm i @angular/compiler-cli
-    - cd angular
-    - ng build
+    - npm install -g @angular/cli
+    - ng --version
     #- ng build --prod
   #artifacts:
    # untracked: true
