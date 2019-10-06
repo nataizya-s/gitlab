@@ -54,5 +54,5 @@ angular_deploy:
   dependencies:
     - angular_build
   script:
-    - scp -r /builds/nataizya/gitlab/angular/dist/ nataizya_s@$host:/home/nataizya_s/angular
+    - scp -r /builds/nataizya/gitlab/angular/dist/* nataizya_s@$host:/home/nataizya_s/angular
 
