@@ -38,7 +38,7 @@ before_script:
 #    - ssh -T nataizya_s@$host "sudo systemctl restart eduvault"
 
 angular_build:
-  image: node
+  image: nataizya/gitlab-angular
   stage: build
   script:
     - npm install -g @angular/cli
