@@ -38,21 +38,18 @@ aspnet_deploy:
     - ssh -T nataizya_s@$host "sudo systemctl restart eduvault"
 
 angular_build:
-  image: node:latest
+  image: trion/ng-cli:latest
   stage: build
   script:
-    - npm install -g angular-cli
     - ng build --prod
   artifacts:
     untracked: true
 
 angular_deploy:
-  image: node:latest
+  image: trion/ng-cli:latest
   stage: deploy
   dependencies:
     - angular_build
   script:
-    - npm install -g angular-cli
-    - scp -r /builds/nataizya/gitlab/angular/dist/* nataizya_s@$host:/home/nataizya_s/app/angular/dist
-    - ssh -T nataizya_s@$host "ng serve"
+    - scp -r /builds/nataizya/gitlab/angular/dist/* nataizya_s@$host:/var/www/angular
 
