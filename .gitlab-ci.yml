@@ -37,6 +37,7 @@ aspnet_deploy:
     - ssh -T nataizya_s@$host "sudo systemctl stop eduvault"
     - scp -r /builds/nataizya/gitlab/aspnet-core/* nataizya_s@$host:/home/nataizya_s/app/aspnet-core
     - ssh -T nataizya_s@$host "sudo systemctl start eduvault"
+    - ls
 
 angular_build:
   image: node
